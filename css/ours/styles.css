@@ -1,0 +1,130 @@
+body{
+    background-image: url("../../img/daisy.jpg");
+}
+
+.container{
+    background-color: white;
+    padding: 30px;
+    border-radius: 25px;
+    border: 5px solid goldenrod;
+}
+
+img{
+    width: 350px;
+    height: 400px;
+}
+
+.section {
+    width: 100%;
+    height: 1000px;
+}
+
+#MapSite {
+    width: 95% ;
+    height: 500px;
+}
+
+h5 {
+    font-weight: normal;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+#lineanimationg {
+    height: 400px;
+
+}
+
+button:focus {
+    background-color: green;
+}
+
+p, b{
+    font-size: 15px;
+}
+
+h1{
+    font-size: 28px;
+}
+
+h2{
+    font-size: 20px;
+}
+
+#fp-nav ul li a span,
+.fp-slidesNav ul li a span {
+    background: cyan;
+    border: 1.5px solid black;
+}
+
+button{
+    background-color: #008CBA;
+    border-radius: 8px;
+    padding: 10px 24px;
+    color: white;
+}
+
+button:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.tooltip.mine{
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #008CBA;
+    border-radius: 4px;
+}
+ #a{
+     background-color: #332288;
+ }
+
+ #b{
+     background-color:#117733;
+ }
+
+ #c{
+     background-color: #44AA99
+ ;
+ }
+#d{
+    background-color:#88CCEE ;
+}
+#e{
+    background-color: #DDCC77;
+}
+
+#f{
+    background-color: #CC6677 ;
+}
+#g{
+    background-color: #AA4499 ;
+}
+
+#h{
+    background-color: #882255 ;
+}
+
+.slideContainer{
+    margin-left: 30px;
+    margin-right: 30px
+}
+
+.legendButtons{
+    border-radius: 50%;
+    padding: 10px;
+    margin: 5px;
+}
+
+#legendlabel{
+    margin-left: 20px;
+}

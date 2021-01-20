@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CS171 Final Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/libraries/leaflet.css">
+    <link rel="stylesheet" type="text/css" href="css/libraries/fullpage.css" />
+    <link rel="stylesheet" href="css/ours/styles.css">
+</head>
+<body>
+    <div id = "fullpage" >
+            <div class="section" id="titleSection">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1> Food for thought</h1>
+                           <h5>Climate change's impact on food production, and what we can do about it.</h5>
+                               Produced by:
+                            <p><i>Karina Gonzalez-Espinoza</i><br><i>Victoria Ying</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section words" id="introSection">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1> Food and Climate Change</h1>
+                            <p> The goal of this project:
+                            Through letting users engage more meaningfully with trends of food production and the energy portfolios of various
+                                countries, we hope that people could realize that <b>we are headed towards an increasingly unequal world.</b> </p>
+                            <p> In the following section we will present a short survey, the results of which will be used to
+                            generate starting filters for our first figure. There is no previous knowledge required and you
+                                are free to skip it if short on time.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="quizSection">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1> Introductory Survey</h1> <i>click on the images to answer each question.</i> <br><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h5 id="surveyQuestion"> <b>Which of the following crops would you say plays the biggest role in your diet?</b></b></h5><br><br>
+                        </div>
+                    </div>
+                    <div class="row" id="surveyOptions">
+                        <div class="col">
+                            Wheat <br>
+                            <input type="image" src="img/wheat.png" alt="Submit" width="150" height="150" onclick="pickedWheat()">
+                        </div>
+                        <div class="col">
+                            Maize <br>
+                            <input type="image" src="img/maize.png" alt="Submit" width="150" height="150" onclick="pickedMaize()">
+                        </div>
+                        <div class="col">
+                            Rice <br>
+                            <input type="image" src="img/rice.png" alt="Submit" width="150" height="150" onclick="pickedRice()">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <br><br><br><button class="float-right" onclick="startOver()"> Reset Survey</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="visOne">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="row" >
+                                <div class="col">
+                                    <h1> Figure 1. World Map </h1>
+                                    <h5> This visualization shows projections of world staple crop yield percent changes from the 2000 standard for different climate change scenarios.</h5>
+                                        <p><i>Source: Ana Iglesias of The Universidad Politecnica de Madrid and Cynthia Rosenzweig
+                                            of the NASA Goddard Institute for Space Studies (2010).</i></p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col">
+                                    <div id="MapSite"></div>
+                                </div>
+
+                                <div class="col">
+                                    <p id="surveyResults"> <b> You did not complete the survey so please read the filter descriptions by hovering over their labels in order to
+                                        create different maps to explore. </b></p>
+                                    <i>The dark gray color indicates information is not available for that country</i><br><br>
+                                    <h4> Control The Map </h4><br>
+                                    <label data-toggle="tooltip" data-placement="top" title="The year that the projection will focus on" for="V1year"><b>Year:  </b></label>
+                                    <select name="V1year" id="V1year" onchange="map.updatevis()">
+                                        <option value="2050"> 2050 </option>
+                                        <option value="2080"> 2080 </option>
+                                    </select> <br>
+                                    <label data-toggle="tooltip" data-placement="left" title="These projections come from the Special Report on Emissions Scenarios by
+                                    the Intergovernmental Panel on Climate Change. In relation to question 3 on the previous survey, A1 scenarios are tied to option 1,
+                                    B1 scenarios with option 2, A2 scenarios to option 3, and B2 scenarios to option 4."
+                                           for="V1projection"><b> Global Projection: </b></label><select name="V1projection" id="V1projection"
+                                                                                                         onchange="map.updatevis()">
+                                        <option value="A1F1"> SRES A1F1 </option>
+                                        <option value="A2a"> SRES A2a </option>
+                                        <option value="A2b"> SRES A2b </option>
+                                        <option value="A2c"> SRES A2c </option>
+                                        <option value="B1a"> SRES B1a </option>
+                                        <option value="B2a"> SRES B2a </option>
+                                        <option value="B2b"> SRES B2b </option>
+                                    </select> <br>
+                                    <label data-toggle="tooltip" data-placement="bottom" title="The crop that the projection will focus on" for="V1crop"><b> Crop: </b></label>
+                                    <select name="V1crop" id="V1crop" onchange="map.updatevis()">
+                                        <option value="0"> Wheat </option>
+                                        <option value="1"> Rice </option>
+                                        <option value="2"> Maize </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section words" id="VisTwoText">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1> An Uncertain Future</h1>
+                            <p> As shown in figure 1, there are many ways our future can change and not every country
+                            will be affected in the same way. Naturally, not every country's actions are contributing
+                            equally to these hypothetical futures either. The previous projections were created by estimating
+                            future atmospheric carbon levels, frequency of precipitation, and average temperature. A
+                            deciding factor in which of these scenarios comes to be is the quantity of fossil fuel emissions,
+                                which you will be able to explore in the next slide.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="VisTwo">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="row" >
+                                <div class="col">
+                                    <h1> Figure 2. Fossil Fuel Emissions </h1>
+                                    <h5>  The following interconnected graphs will allow you to see how global carbon emissions have changed over time.
+                                        The initial values have been randomly generated.
+                                    </h5><br>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div id = 'lineAnimation'>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <b>Each dot in this scatterplot represents a different country. The colors are only for differentiation
+                                                . The location of the dot
+                                                on the graph represents the relationship of two different types of carbon emissions.
+                                            Explore it by changing the values of the x or y axes with the buttons below
+                                                and drag the slider in the linegraph to change the focus year. Hovering over each dot
+                                            will also display the information directly.</b><br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <b>x-axis</b><br>
+                                            <button id="xtotal" onclick="scatterPlot.changedX('Total')">Total</button>
+                                            <button id="xsolid" onclick="scatterPlot.changedX('Solid Fuel')">Solid Fuel</button><br>
+                                            <button id="xliquid" onclick="scatterPlot.changedX('Liquid Fuel')">Liquid Fuel</button>
+                                            <button id="xgas" onclick="scatterPlot.changedX('Gas Fuel')">Gas Fuel</button><br>
+                                            <button id="xcement" onclick="scatterPlot.changedX('Cement')">Cement</button><br>
+                                        </div>
+                                        <div class="col">
+                                            <b>y-axis</b><br>
+                                            <button id="ytotal" onclick="scatterPlot.changedY('Total')">Total</button>
+                                            <button id="ysolid" onclick="scatterPlot.changedY('Solid Fuel')">Solid Fuel</button><br>
+                                            <button id="yliquid" onclick="scatterPlot.changedY('Liquid Fuel')">Liquid Fuel</button>
+                                            <button id="ygas" onclick="scatterPlot.changedY('Gas Fuel')">Gas Fuel</button><br>
+                                            <button id="ycement" onclick="scatterPlot.changedY('Cement')">Cement</button><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div id="linechartinyourarea"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section words" id="VisThreeText">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1>Going Green</h1>
+                            <p> As shown in Figure 1, global warming impacts worldwide crop production, and fossil fuel emission is one of the
+                                most significant culprits. Figure 2 shows that global fossil fuel emissions have increased drastically since the 1900s.
+                                This paints a harrowing picture, but there is hope yet.
+                                Since the 2000s, the world has ramped up investments in clean energy (biomass, geothermal, hydropower, solar, and wind).
+                                For specific investment trend in different regions, please scroll down to see the visualization below. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="VisThree">
+                <div class="container">
+
+                    <div class="row" >
+                        <div class="col">
+                            <h1> Figure 3. Stacked Area Chart Illustrating Investment in Clean Energy </h1>
+                        </div>
+                    </div> <br>
+
+                    <div class="row">
+                        <div class="col d-flex justify-content-center" id="stackedAreaChart">
+                        </div>
+                        <div class="col">
+                            <b>Since 2005, world investment in clean energy has increased almost 5 times.</b>
+                            <b> China </b> became the largest investor in clean energy,investing 83.4 billion USD in 2019. <b> United States</b>
+                            and <b>Europe</b> are the second and third biggest investors. However, the global investment slowed down
+                            in the past four years (2015-2019), floating at around 300 billion USD each year. This fact is concerning, as
+                            growing emissions will not only impact food production, but also raise sea levels and the possibility of extreme
+                            weathers, putting tens and thousands of human lives at risk.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="section words" id="VisFourText">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1> Is zero emission possible?</h1>
+                            <p>To avoid the worst consequence of climate change, we will need to reach "net zero" emissions
+                            by 2050 or sooner. Net Zero means that, on balance, no more carbon is dumped into the atmosphere
+                            than is taken out. To achieve that, the world needs to shift its energy portfolio away from fossil fuels to
+                            the greener and cleaner energy. Looking at the visualization below, do you have faith in us achieving net zero emission
+                                by 2050?  </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="VisFour">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <h1> Figure 4. Energy Portfolio for Regions </h1>
+                                <h5> The below ray map illustrates the global energy portfolio from 1965 to 2019. Each ray represents a country.
+                                Hover over the country for more information and change the display with the below controls.</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="chart-area" >
+                        <form class="form-inline">
+                            <div class="form-group" >
+                                <div class="slideContainer">
+                                    <label id='selected-year' for="myRange"> Year: <b>2000</b> </label>
+                                    <input type="range" min="1965" max="2019" value="2000" class="slider" id="myRange" onclick="rayChart.wrangleData()">
+                                </div><br>
+                                <label for="data-type"> <b>Energy Source:</b> </label>
+                                <select class="form-control" id="data-type" onchange="rayChart.wrangleData()" >
+                                    <option value="coal_consumption_EJ">Coal Consumption (EJ)</option>
+                                    <option value="gas_consumption_EJ">Gas Consumption (EJ)</option>
+                                    <option value="oil_consumption_EJ">Oil Consumption (EJ)</option>
+                                    <option value="solar_generation_TWh">Solar Generation (TWh)</option>
+                                    <option value="wind_generation_TWh">Wind Generation (TWh)</option>
+                                    <option value="hydro_generation_TWh">Hydro Generation (TWh)</option>
+                                    <option value="geo_biomass_other_TWh">Geo Biomass (TWh)</option>
+                                    <option value="nuclear_generation_TWh">Nuclear Generation (TWh)</option>
+                                </select>
+                                <label id="legendlabel" for="a"> <b>Legend:</b> </label>
+                                <button id="a" data-toggle="tooltip" data-placement="top" title="Coal Consumption"
+                                        class="legendButtons"></button>
+                                <button id="b" data-toggle="tooltip" data-placement="top" title="Gas Consumption"
+                                        class="legendButtons"></button>
+                                <button id="c" data-toggle="tooltip" data-placement="top" title="Oil Consumption"
+                                        class="legendButtons"></button>
+                                <button id="d" data-toggle="tooltip" data-placement="top" title="Solar Generation"
+                                        class="legendButtons"></button>
+                                <button id="e" data-toggle="tooltip" data-placement="top" title="Wind Generation"
+                                        class="legendButtons"></button>
+                                <button id="f" data-toggle="tooltip" data-placement="top" title="Hydro Generation"
+                                        class="legendButtons"></button>
+                                <button id="g" data-toggle="tooltip" data-placement="top" title="Geo Biomass"
+                                        class="legendButtons"></button>
+                                <button id="h" data-toggle="tooltip" data-placement="top" title="Nuclear Generation"
+                                        class="legendButtons"></button>
+                            </div>
+                        </form>
+
+                        <div class="row">
+                            <div class="col d-flex justify-content-center" id="rayChart"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="section words" id="Conclusion">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1> The Time to Act is Now </h1>
+                            <p> And you can help! To slow down climate change and save our planet (and your favorite food), we cannot rely solely
+                            on our governments. There are several easy actions each of us could take.
+                                 The number one thing we could do is to <b>reduce food waste</b>. Surprisingly, reducing food waste has the most substantive impact on reducing
+                                carbon emissions. Meanwhile, eating a <b> plant-rich diet</b> and <b> choosing public transportation or walking</b> to
+                                the destination will also keep our planet cooler. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section words" id="EndPage">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1> It Is Time for Us to Act Now</h1>
+                            <h6> attributions</h6>
+                            <p>grain PNG Designed By 588ku from <a href="https://pngtree.com/">Pngtree.com</a>
+                            <br> <a href='https://pngtree.com/so/maize-seed'>maize seed png from pngtree.com</a>
+                            <br> <a href='https://pngtree.com/so/grain'>grain png from pngtree.com</a>
+                                <a href='https://pngtree.com/so/autumnal'>autumnal png from pngtree.com</a></p>
+                            <a href='https://pngtree.com/so/earth'>earth png from pngtree.com</a>
+                        </div>
+                        <div class="col"><br><br>
+                            <a href="https://github.com/karilu/GirlsSaveThePlanet171"> Our github repository</a><br>
+                            <a href="https://docs.google.com/document/d/1_HBFrpurPWXwlk-gAp40DqYhMeO8n2IZ59-S-Ean_IU/edit?usp=sharing"> Our Process Book</a>
+                            <p> Thank you for taking the time to explore our data story!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BootStrap-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="https://d3js.org/d3-geo.v1.min.js"></script>
+
+    <!-- function for radial charts -->
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3-scale-radial.js"></script>
+
+    <!-- Leaflet -->
+    <script src="js/libraries/leaflet.js"></script>
+
+    <!-- Fullpage -->
+    <script type="text/javascript" src="js/libraries/fullpage.js"></script>
+
+    <!-- Our implementation -->
+    <script src="js/ours/stackedareachart.js"></script>
+    <script src="js/ours/raychart.js"></script>
+    <script src="js/ours/worldmap.js"></script>
+    <script src="js/ours/scatterplot.js"></script>
+    <script src="js/ours/linechart.js"></script>
+    <script src="js/ours/survey.js"></script>
+    <script src="js/ours/main.js"></script>
+
+    <!-- Enable fullpage scrolling -->
+    <script type="text/javascript">
+        var myFullpage = new fullpage('#fullpage', {
+            navigation: true, natigationPosition: 'right'});
+    </script>
+
+</body>
+</html>
